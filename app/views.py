@@ -92,7 +92,8 @@ def user_signup(request):
 # for verifying email
 def send_mail_after_signup( email, email_token):
     subject = "Action Needed!!! Your account needs to be verify!"
-    message = f"Please click on the link to verify your account. http://127.0.0.1:8000/verify/{email_token}"
+    # message = f"Please click on the link to verify your account. http://127.0.0.1:8000/verify/{email_token}"
+    message = f"Please click on the link to verify your account. https://django-auth.up.railway.app/verify/{email_token}"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
@@ -102,7 +103,8 @@ def send_mail_after_signup( email, email_token):
 # for sending forget password link
 def send_forget_password_mail(email , token ):
     subject = 'Your forget password link'
-    message = f'Hi , click on the link to reset your password http://127.0.0.1:8000/change_password/{token}/'
+    # message = f'Hi , click on the link to reset your password http://127.0.0.1:8000/change_password/{token}/'
+    message = f'Hi , click on the link to reset your password https://django-auth.up.railway.app/change_password/{token}/'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
