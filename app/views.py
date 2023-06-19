@@ -53,6 +53,8 @@ def user_login(request):
 
 def user_signup(request):
     if request.method == 'POST':
+        global username
+        global email
         username = request.POST.get('username')
         email = request.POST.get('email')
         pass1 = request.POST.get('pass1')
@@ -112,7 +114,8 @@ def send_forget_password_mail(email , token ):
 
 
 
-def user_verify(request, email_token):
+def user_verify(request, email_token, ):
+    
     try:
         profile_obj = Profile.objects.filter(email_token=email_token).first()
 
@@ -126,7 +129,13 @@ def user_verify(request, email_token):
             profile_obj.is_email_verified = True
             profile_obj.save()
             messages.success(request,"Your account has been verified. Now you can login.")
+            subject = f'!! New User Registered In Django Authentication !!'
+            message = f'''Hi Prajwal, We have noticed that new user is registered in your Django Authentication System .
+            Details of user :- Username :   {username}, Email :  {email}
+            You can check user's from here - https://django-auth-v46x.onrender.com/superadmin/ '''
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL])
             return redirect('login')
+            
 
         else:
             return redirect('error')
