@@ -153,4 +153,4 @@ STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-CSRF_TRUSTED_ORIGINS = ['https://django-auth.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://django-auth.up.railway.app', 'http://127.0.0.1:8000/']
