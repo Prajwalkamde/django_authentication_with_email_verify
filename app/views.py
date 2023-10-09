@@ -95,7 +95,8 @@ def user_signup(request):
 def send_mail_after_signup( email, email_token):
     subject = "Action Needed!!! Your account needs to be verify!"
     # message = f"Please click on the link to verify your account. http://127.0.0.1:8000/verify/{email_token}"
-    message = f"Please click on the link to verify your account. https://django-auth.up.railway.app/verify/{email_token}"
+    # message = f"Please click on the link to verify your account. https://django-auth.up.railway.app/verify/{email_token}"
+    message = f"Please click on the link to verify your account. https://django-auth-v46x.onrender.com/verify/{email_token}"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
@@ -106,7 +107,8 @@ def send_mail_after_signup( email, email_token):
 def send_forget_password_mail(email , token ):
     subject = 'Your forget password link'
     # message = f'Hi , click on the link to reset your password http://127.0.0.1:8000/change_password/{token}/'
-    message = f'Hi , click on the link to reset your password https://django-auth.up.railway.app/change_password/{token}/'
+    # message = f'Hi , click on the link to reset your password https://django-auth.up.railway.app/change_password/{token}/'
+    message = f'Hi , click on the link to reset your password https://django-auth-v46x.onrender.com/change_password/{token}/'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)
@@ -128,12 +130,12 @@ def user_verify(request, email_token):
 
             profile_obj.is_email_verified = True
             profile_obj.save()
-            messages.success(request,"Your account has been verified. Now you can login.")
             subject = f'!! New User Registered In Django Authentication !!'
             message = f'''Hi Prajwal, We have noticed that new user is registered in your Django Authentication System .
             Details of user - Username : {username} , Email - {email}
             You can check user details from here - https://django-auth-v46x.onrender.com/superadmin/ '''
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL])
+            messages.success(request,"Your account has been verified. Now you can login.")
             return redirect('login')
             
 
