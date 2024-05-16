@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -157,10 +157,19 @@ DEFAULT_FROM_EMAIL = 'prajwalkamde264@gmail.com'
 
 
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+# # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 CSRF_TRUSTED_ORIGINS = ['https://django-auth.up.railway.app', 'http://127.0.0.1:8000/']
+
+
+# This production code might break development mode, so we check whether we're in DEBUG mode
+if not DEBUG:
+    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
